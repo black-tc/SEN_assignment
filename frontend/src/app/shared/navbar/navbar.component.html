@@ -1,0 +1,52 @@
+<button type="button" id="mobile-nav-toggle" (click)="toggleNav()">
+  <i [className]="navOpen ? 'fa fa-times' : 'fa fa-bars'"></i>
+</button>
+<header id="header">
+  <div class="container-fluid">
+    <div id="logo" class="pull-left">
+    <a [routerLink]="['/']" class=""><img class="logo" src="../../../assets/images/logo.png"></a>
+    </div>
+    <nav  #nav id="nav-menu-container">
+      <ul class="nav-menu">
+        <li routerLinkActive="menu-active" [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/']">Home</a>
+        </li>
+        <li >
+          <a [routerLink]="['/']">About Us</a>
+        </li>
+        <li>
+          <a [routerLink]="['/']" fragment="contact"><a>FAQ</a></a>
+        </li>
+        <li>
+          <a [routerLink]="['/']" fragment="contact">Contact Us</a>
+        </li>
+        <li>
+          <a *ngIf="auth.isLoggedIn()" (click)="signOut()" style="cursor: pointer;">Sign out</a>
+        </li>
+        <li>
+          <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/auth/signin']" >Sign In</a>
+        </li>
+      </ul>
+
+    </nav>
+    <nav id="mobile-nav" (click)="toggleNav()">
+      <img class="logo-mobile" src="../../../assets/images/logo.png">
+      <ul>
+        <li>
+          <a [routerLink]="['/']">Home</a>
+        </li>
+        <li>
+          <a [routerLink]="['/about-us']">About Us</a>
+        </li>
+        
+        <li>
+          <a [routerLink]="['/']" fragment="contact">FAQ</a>
+        </li>
+        <li>
+          <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/']" fragment="contact">Sign In</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mobile-body-overly" [style.display]="navOpen ? 'block' : 'none'"></div>
+  </div>
+</header>

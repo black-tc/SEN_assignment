@@ -1,0 +1,152 @@
+<div class="container-fluid bg-lightest">
+
+    <!-- <div *ngIf="showSnackbar">
+        <app-messagebar [message]="message"></app-messagebar>
+    </div> -->
+  
+    <div class="row">
+  
+        <div class="col col-12 col-lg-7 col-xl-8 justify-content-center text-center form">
+            <div class="mt-4">
+                <h1 class="f6 text-secondary text-center" style="margin-top: 3rem">
+                    <a >
+                    </a> &nbsp;ITS Access Form
+                </h1>
+  
+                <!--Create Profile Form-->
+                <form [formGroup]="createForm" (ngSubmit)="onSubmit($event)" class="text-left mt-4 offset-override">
+  
+                    <!--Form Errors-->
+                    
+                    <app-error-message [obs]="errorMessage"></app-error-message>
+                    <!--Department-->
+                 <div class="form-group mb-3">
+                    <label for="department" class="text-secondary">Department <span class="text-danger">*</span></label>
+                    <input type="text" name="school" required formControlName="department" class="form-control primary-border"
+                        [ngClass]="{ 'is-invalid': submitted && f?.department?.errors, 'danger-border': submitted && f?.department?.errors }">
+
+                    <div *ngIf="submitted && f?.department?.errors" class="invalid-feedback">
+                        <div *ngIf="f?.department?.errors?.required">Department is required.</div>
+                        <div *ngIf="f?.department?.errors?.pattern">Enter a valid input.</div>
+                    </div>
+                </div> <div class="row">
+                        
+                        <div class="col-12 col-sm-6 col-md-6">
+                        
+                        <!--First Name-->
+                        <div class="form-group mb-3">
+                            <label for="fname" class="text-secondary">First Name(s) <span class="text-danger">*</span></label>
+                            <input type="text" required class="form-control primary-border" id="company_name" name="fname"
+                            formControlName="fname" maxlength="30"
+                            [ngClass]="{ 'is-invalid': submitted && f?.fname?.errors, 'danger-border': submitted && f?.fname?.errors }">
+  
+                            <div *ngIf="submitted && f?.fname?.errors" class="invalid-feedback">
+                                <div *ngIf="f?.fname?.errors?.required">First Name(s is required.</div>
+                                <div *ngIf="f?.fname?.errors?.pattern">Enter a valid first name.</div>
+                            </div>
+                            </div>
+                        </div>
+
+ 
+                        <!--Last name-->
+                        <div class="col-12 col-sm-6 col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="lname" class="text-secondary">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" required class="form-control primary-border" id="lname" name="lname"
+                                formControlName="lname" maxlength="30"
+                                [ngClass]="{ 'is-invalid': submitted && f?.lname?.errors, 'danger-border': submitted && f?.lname?.errors }">
+                             
+                                <div *ngIf="submitted && f?.lname?.errors" class="invalid-feedback">
+                                    <div *ngIf="f?.lname?.errors?.required">Last Name is required.</div>
+                                    <div *ngIf="f?.lname?.errors?.pattern">Enter a valid Last Name.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!--Personnel number-->
+                     <div class="form-group mb-3">
+                        <label for="personnel_number" class="text-secondary">Personnel Number <span class="text-danger">*</span></label>
+                        <input type="text" name="personnel_number" required formControlName="personnel_number" class="form-control primary-border"
+                            [ngClass]="{ 'is-invalid': submitted && f?.personnel_number?.errors, 'danger-border': submitted && f?.personnel_number?.errors }">
+  
+                        <div *ngIf="submitted && f?.personnel_number?.errors" class="invalid-feedback">
+                            <div *ngIf="f?.personnel_number?.errors?.required">Personnel Number is required.</div>
+                            <div *ngIf="f?.personnel_number?.errors?.pattern">Enter a valid input.</div>
+                        </div>
+                    </div>
+                   
+                <!--email-->
+                <div class="form-group mb-3">
+                  <label for="email" class="text-secondary">Email <span class="text-danger">*</span></label>
+                  <input type="text" name="email" required formControlName="email" class="form-control primary-border"
+                      [ngClass]="{ 'is-invalid': submitted && f?.email?.errors, 'danger-border': submitted && f?.email?.errors }">
+  
+                  <div *ngIf="submitted && f?.email?.errors" class="invalid-feedback">
+                      <div *ngIf="f?.email?.errors?.required">Email is required.</div>
+                      <div *ngIf="f?.email?.errors?.pattern">Enter a valid email address.</div>
+                  </div>
+              </div>
+<!--phone-->
+                  <div class="form-group mb-3">
+                    <label for="phone" class="text-secondary">Cellphone Number <span class="text-danger">*</span></label>
+                    <input type="text" name="phone" required formControlName="phone" class="form-control primary-border"
+                        [ngClass]="{ 'is-invalid': submitted && f?.phone?.errors, 'danger-border': submitted && f?.phone?.errors }">
+  
+                    <div *ngIf="submitted && f?.phone?.errors" class="invalid-feedback">
+                        <div *ngIf="f?.phone?.errors?.required">Phone number is required.</div>
+                        <div *ngIf="f?.phone?.errors?.pattern">Enter a valid phone number.</div>
+                    </div>
+                </div>
+                    <div class="form-group mb-3" >
+                        <label for="yes" class="text-secondary">Academic <span class="text-danger">*</span></label>
+                        <div>
+                          <input style="color: #1b2b5d !important;" id="yes" type="radio" value="Yes" name="academic" formControlName="academic">
+                          &nbsp;&nbsp;<label for="yes">YES</label>
+                       </div>
+              
+                       <div>
+                          <input style="color: #1b2b5d;" id="no" type="radio" value="No" name="academic" formControlName="academic">
+                          &nbsp;&nbsp;<label for="no">NO</label>
+                       </div>
+                          
+                        <!-- <div *ngIf="f.title?.touched && f.title?.invalid" class="alert alert-danger">
+                            <div *ngIf="f.title?.errors.required">Name is required.</div>
+                        </div> -->
+                    </div>
+  
+                   
+                 <!--Job-->
+                 <div class="form-group mb-3">
+                    <label for="job" class="text-secondary">Job Title <span class="text-danger">*</span></label>
+                    <input type="text" name="faculty" required formControlName="job" class="form-control primary-border"
+                        [ngClass]="{ 'is-invalid': submitted && f?.job?.errors, 'danger-border': submitted && f?.job?.errors }">
+
+                    <div *ngIf="submitted && f?.job?.errors" class="invalid-feedback">
+                        <div *ngIf="f?.job?.errors?.required">Job Title is required.</div>
+                    </div>
+                </div>
+
+                   
+                    <!--SUBMIT-->
+                    <div class="form-group mb-2">
+                        <button [disabled]="loading || btnWait" class="btn btn-login btn-primary btn-block mt-4 py-3" ><span *ngIf="!loading" style="font-size: 2rem;">Submit Form</span>
+                        <div *ngIf="loading" class="spinner-border text-white" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        </button>
+                    </div>
+                    <div class="text-center ">By clicking this button, you agree to our <a [routerLink]="['/terms']" target="_blank" class="acolor"><span class="f4">Terms and Conditions</span></a></div>
+  
+                </form>
+            </div>
+        </div>
+  
+        <!--IMAGE-->
+        <div class="col col-0 col-lg-5 col-xl-4 col-override p-0" style="min-height: 100vh;">
+            <div class="landing-pic d-none d-lg-block d-xl-block"></div>
+        </div>
+    </div>
+  </div>
+  
+  
+  
