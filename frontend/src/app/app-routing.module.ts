@@ -10,8 +10,12 @@ import { BioFormComponent } from './components/bio-form/bio-form.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ItsFormComponent } from './components/its-form/its-form.component';
 import { UserAuthGuard } from './guards/user-auth.guard';
+import { AdminAuthGuard } from './guards/admin-auth.guard';
+
 //admin components
 import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { DashboardBioApplicationsComponent } from './components/admin/dashboard-bio-applications/dashboard-bio-applications.component';
 
 //defining our routes
 const routes: Routes = [
@@ -59,17 +63,25 @@ const routes: Routes = [
   path: "auth/admin/signin", component: AdminLoginComponent
 
 },
+//bio form page
 {
   path: "bio-form", component: BioFormComponent, canActivate: [UserAuthGuard]
 
 },
+//user dashboard page
 {
   path: "dashboard", component: DashboardComponent, canActivate: [UserAuthGuard]
-
 },
 {
+  path: "admin_dashboard", component: AdminDashboardComponent, canActivate: [AdminAuthGuard]
+},
+//ITS access form page
+{
   path: "its-form", component: ItsFormComponent, canActivate: [UserAuthGuard]
-
+},
+//ITS access form page
+{
+  path: "admin_dashboard/bio_forms", component: DashboardBioApplicationsComponent, canActivate: [AdminAuthGuard]
 }
 ];
 

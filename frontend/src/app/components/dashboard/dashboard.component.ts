@@ -8,9 +8,16 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+  name?: string;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+
+    const user = JSON.parse(localStorage.getItem('user')!);
+    this.name = user.user.first_name;
+    
+    
   }
 
   redirectToBio() {

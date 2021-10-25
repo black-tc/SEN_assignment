@@ -108,7 +108,7 @@ export class UserAuthService {
 
   //method to verify user account
   accountActivation(bidder_id: number = 24): Observable<any> {
-    console.log("sdfsdf")
+    
     return this.http.get(this.server_url + 'users/activation/' + bidder_id)
   .pipe(catchError(this.handleError));
   }
@@ -117,6 +117,30 @@ export class UserAuthService {
     const user = JSON.parse(localStorage.getItem('user')!);
     if (user) {
       return user.token && true;
+    } else { return false; }
+  }
+
+   //method to authenticate admin users
+   admin_login(user: any): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        // Authorization: ''
+      })
+    };
+
+    return this.http
+      .post(this.server_url + 'users/login_authenticate_admins', user, {
+        headers: httpOptions.headers
+      })
+      .pipe(map(res => res));
+  }
+
+//function to check if user is logged in as an admin
+  public isAdmin(): boolean {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    if (user) {
+      return user.token && true && user.user.isAdmin;
     } else { return false; }
   }
 

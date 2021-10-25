@@ -10,9 +10,30 @@
   width: 50%;
 }
 
+.title {
+  margin-left: -400px;
+  padding: 0 50px 0 10px;
+    text-decoration: none;
+    display: inline-block;
+    color: var(--color-black-1);
+    font-family: "Avenir ";
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    outline: none;
+    transition: 0s;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
 @media only screen and (max-width: 519px) {
   .logo {
     width: 100px;
     height: auto;
+  }
+
+  .title {
+    display: none;
   }
 }

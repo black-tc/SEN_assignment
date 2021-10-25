@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit {
 
   signOut() {
 
-    localStorage.removeItem('user');
+    localStorage.removeItem('user'); 
     this.route.navigate(['/'])
   }
 

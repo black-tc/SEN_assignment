@@ -24,6 +24,11 @@ import { PageIntroComponent } from './shared/page-intro/page-intro.component';
 import { BioFormComponent } from './components/bio-form/bio-form.component';
 import { ItsFormComponent } from './components/its-form/its-form.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { DashboardNavbarComponent } from './components/admin/dashboard-navbar/dashboard-navbar.component';
+import { DashboardBioApplicationsComponent } from './components/admin/dashboard-bio-applications/dashboard-bio-applications.component';
+import { DashboardBioFormComponent } from './components/admin/dashboard-bio-applications/dashboard-bio-form/dashboard-bio-form.component';
+import { DashboardHeadingComponent } from './components/admin/dashboard-heading/dashboard-heading.component';
 
 
 @NgModule({
@@ -48,7 +53,12 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     PageIntroComponent,
     BioFormComponent,
     ItsFormComponent,
-    DashboardComponent
+    DashboardComponent,
+    AdminDashboardComponent,
+    DashboardNavbarComponent,
+    DashboardBioApplicationsComponent,
+    DashboardBioFormComponent,
+    DashboardHeadingComponent
 
 
   ],
