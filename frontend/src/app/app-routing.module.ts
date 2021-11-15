@@ -82,7 +82,8 @@ const routes: Routes = [
 //ITS access form page
 {
   path: "admin_dashboard/bio_forms", component: DashboardBioApplicationsComponent, canActivate: [AdminAuthGuard]
-}
+},
+
 ];
 
 @NgModule({

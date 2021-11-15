@@ -1,0 +1,15 @@
+<div class="wrap" [style]="styles">
+    <div class="search">
+      <input
+        type="text"
+        class="searchTerm"
+        [placeholder]="placeholder"
+        [(ngModel)]="term"
+        (input)="handleTerm()"
+      />
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </div>
+  

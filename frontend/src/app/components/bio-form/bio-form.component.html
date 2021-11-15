@@ -14,11 +14,12 @@
                 </h1>
   
                 <!--Create Profile Form-->
-                <form [formGroup]="createForm" (ngSubmit)="onSubmit($event)" class="text-left mt-4 offset-override">
+                <form [formGroup]="createForm"  class="text-left mt-4 offset-override">
   
                     <!--Form Errors-->
                     
                     <app-error-message [obs]="errorMessage"></app-error-message>
+                    <div *ngIf="employee_details">
                     <small style="margin-top: 50px; color: #fcb017;">EMPLOYEE DETAILS</small>
                      <!--Personnel number-->
                      <div class="form-group mb-3">
@@ -101,8 +102,17 @@
                  <!--Faculty-->
                  <div class="form-group mb-3">
                     <label for="faculty" class="text-secondary">Faculty <span class="text-danger">*</span></label>
-                    <input type="text" name="faculty" required formControlName="faculty" class="form-control primary-border"
+                    <select type="text" name="faculty" required formControlName="faculty" class="form-control primary-border"
                         [ngClass]="{ 'is-invalid': submitted && f?.faculty?.errors, 'danger-border': submitted && f?.faculty?.errors }">
+                        <option>Faculty of Computing and Informatics</option>
+                        <option>Faculty of Engineering</option>
+                        <option>Faculty of Health and Applied Sciences</option>
+                        <option>Faculty of Human Sciences</option>
+                        <option>Faculty of Management Sciences</option>
+                        <option>Faculty of Natural Resources and Spatial Sciences</option>
+                        <option>Harold Pupkewitz Graduate School of Business</option>
+                        <option>Centre for Open and Lifelong Learning</option>
+                        </select>
 
                     <div *ngIf="submitted && f?.faculty?.errors" class="invalid-feedback">
                         <div *ngIf="f?.faculty?.errors?.required">Faculty is required.</div>
@@ -229,15 +239,32 @@
                         <div *ngIf="f?.next_of_kin_phone?.errors?.pattern">Enter a valid phone number.</div>
                     </div>
                 </div>
-
+                <div class="form-group mb-2">
+                    <button (click)="goToQualifications()" [disabled]="loading || btnWait" class="btn btn-login btn-primary btn-block mt-4 py-3" ><span *ngIf="!loading" style="font-size: 2rem;">Next</span>
+                    <div *ngIf="loading" class="spinner-border text-white" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="qualifications">
                 <small style="margin-top: 50px; color: #fcb017;" >QUALIFICATIONS</small>
                 
                 <!--Highest Qualification-->
                 <div class="form-group mb-3">
                     <label for="qualification" class="text-secondary">Highest Qualification <span class="text-danger">*</span></label>
-                    <input type="text" name="work_phone" required formControlName="qualification" class="form-control primary-border"
+                    <select type="text" name="work_phone" required formControlName="qualification" class="form-control primary-border"
                         [ngClass]="{ 'is-invalid': submitted && f?.qualification?.errors, 'danger-border': submitted && f?.qualification?.errors }">
-
+                    <option>Diploma</option>
+                    <option>Advanced diploma / Associates degree</option>
+                    <option>Bachelor degree</option>
+                    <option>Graduate certificate</option>
+                    <option>Graduate diploma</option>
+                    <option>Honors degree</option>
+                    <option>Masters degree</option>
+                    <option>Doctoral degree</option>
+                    
+                    </select>
                     <div *ngIf="submitted && f?.qualification?.errors" class="invalid-feedback">
                         <div *ngIf="f?.qualification?.errors?.required">Highest Qualification is required.</div>
                     </div>
@@ -246,9 +273,15 @@
                 <!--Institution-->
                 <div class="form-group mb-3">
                 <label for="institution" class="text-secondary">Institution<span class="text-danger">*</span></label>
-                <input type="text" name="institution" required formControlName="institution" class="form-control primary-border"
+                <select type="text" name="institution" required formControlName="institution" class="form-control primary-border"
                     [ngClass]="{ 'is-invalid': submitted && f?.institution?.errors, 'danger-border': submitted && f?.institution?.errors }">
-
+                <option>Namibia University of Science and Technology</option>
+                <option>University of Namibia</option>
+                <option>International University of Management</option>
+                <option>International Training College Lingua</option>
+                <option>Triumphant College</option>
+                <option>Welwitchia University</option>
+                </select>
                 <div *ngIf="submitted && f?.institution?.errors" class="invalid-feedback">
                     <div *ngIf="f?.institution?.errors?.required">Institution is required.</div>
 
@@ -268,7 +301,7 @@
 
                     <!--Specialization-->
                     <div class="form-group mb-3">
-                        <label for="specialization" class="text-secondary">Cellphone Number <span class="text-danger">*</span></label>
+                        <label for="specialization" class="text-secondary">Specialization <span class="text-danger">*</span></label>
                         <input type="text" name="specialization" required formControlName="specialization" class="form-control primary-border"
                             [ngClass]="{ 'is-invalid': submitted && f?.specialization?.errors, 'danger-border': submitted && f?.specialization?.errors }">
 
@@ -276,10 +309,18 @@
                             <div *ngIf="f?.specialization?.errors?.required">Specialization is required.</div>
                         </div>
                     </div>
-
+                    <div class="form-group mb-2">
+                        <button (click)="goToLanguage()" [disabled]="loading || btnWait" class="btn btn-login btn-primary btn-block mt-4 py-3" ><span *ngIf="!loading" style="font-size: 2rem;">Next</span>
+                        <div *ngIf="loading" class="spinner-border text-white" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        </button>
+                    </div>
+                    </div>
+                    <div *ngIf="language_capabilities">
                     <small style="margin-top: 50px; color: #fcb017;" >LANGUAGE CAPABILITIES</small>
                     <!--description-->
-                    <div class="form-group mb-3">
+                    <!-- <div class="form-group mb-3">
                         <label for="language_description" class="text-secondary">Description <span class="text-danger">*</span></label>
                         <textarea name="language_description" rows="3" required formControlName="language_description" class="form-control primary-border"
                             [ngClass]="{ 'is-invalid': submitted && f?.language_description?.errors, 'danger-border': submitted && f?.language_description?.errors }"></textarea>
@@ -288,13 +329,580 @@
                             <div *ngIf="f?.language_description?.errors?.required">Please tell us about your language capabilities.</div>
                             <div *ngIf="f?.language_description?.errors?.minlength">Min limit is 10 characters.</div>
                         </div>
+                    </div> -->
+                    <table class=" table-bordered table-responsive-sm table-sm table-hover text-center " style="margin-top: 40px; margin-bottom: 50px;" cellspacing="0">
+                        <col width="80">
+                        <col width="100">
+                        <col width="150">
+                        <col width="150">
+                        <col width="150">
+                        
+                        <thead>  
+                            <tr>
+                                <th class="text-center"></th>
+                                <th class="text-center">Description</th>
+                                <th class="text-center">Speak</th>
+                                <th class="text-center">Read</th>
+                                <th class="text-center">Write</th>
+                               
+            
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td class="pt" contenteditable="false">
+                                    <input style="width: 150px;" [ngClass]="{ 'is-invalid' :((f.language_1.dirty || f.language_1.touched) && f.language_1.errors) }" type="text" class="form-control" id="language_1"
+                                     formControlName="language_1">
+                                  </td>
+                                  <td class="pt" contenteditable="false">
+
+                                    <select style="width: 150px;" class="form-control" id="speak_1" formControlName="speak_1" required>
+                                      <option value="" disabled selected> </option>
+                                      <option>1 – Elementary Proficiency</option>
+                                      <option>2 – Limited Working Proficiency</option>
+                                      <option>3 – Professional Working Proficiency</option>
+                                      <option>4 – Full Professional Proficiency</option>
+                                      <option>5 – Native / Bilingual Proficiency</option>
+                                    </select>
+                                    </td>
+                                    <td class="pt" contenteditable="false">
+
+                                        <select style="width: 150px;" class="form-control" id="read_1" formControlName="read_1" required>
+                                          <option value="" disabled selected> </option>
+                                          <option>1 – Elementary Proficiency</option>
+                                          <option>2 – Limited Working Proficiency</option>
+                                          <option>3 – Professional Working Proficiency</option>
+                                          <option>4 – Full Professional Proficiency</option>
+                                          <option>5 – Native / Bilingual Proficiency</option>
+                                        </select>
+                                    </td>
+                                    <td class="pt" contenteditable="false">
+
+                                            <select style="width: 150px;" class="form-control" id="write_1" formControlName="write_1" required>
+                                              <option value="" disabled selected> </option>
+                                              <option>1 – Elementary Proficiency</option>
+                                              <option>2 – Limited Working Proficiency</option>
+                                              <option>3 – Professional Working Proficiency</option>
+                                              <option>4 – Full Professional Proficiency</option>
+                                              <option>5 – Native / Bilingual Proficiency</option>
+                                            </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td class="pt" contenteditable="false">
+                                      <input style="width: 150px;" type="text" class="form-control" id="language_2"
+                                       formControlName="language_2">
+                                    </td>
+                                    <td class="pt" contenteditable="false">
+  
+                                      <select style="width: 150px;" class="form-control" id="speak_2" formControlName="speak_2" required>
+                                        <option value="" selected> </option>
+                                        <option>1 – Elementary Proficiency</option>
+                                        <option>2 – Limited Working Proficiency</option>
+                                        <option>3 – Professional Working Proficiency</option>
+                                        <option>4 – Full Professional Proficiency</option>
+                                        <option>5 – Native / Bilingual Proficiency</option>
+                                      </select>
+                                      </td>
+                                      <td class="pt" contenteditable="false">
+  
+                                          <select style="width: 150px;" class="form-control" id="read_2" formControlName="read_2" required>
+                                            <option value=""  selected> </option>
+                                            <option>1 – Elementary Proficiency</option>
+                                            <option>2 – Limited Working Proficiency</option>
+                                            <option>3 – Professional Working Proficiency</option>
+                                            <option>4 – Full Professional Proficiency</option>
+                                            <option>5 – Native / Bilingual Proficiency</option>
+                                          </select>
+                                      </td>
+                                      <td class="pt" contenteditable="false">
+  
+                                              <select style="width: 150px;" class="form-control" id="write_2" formControlName="write_2" required>
+                                                <option value="" selected> </option>
+                                                <option>1 – Elementary Proficiency</option>
+                                                <option>2 – Limited Working Proficiency</option>
+                                                <option>3 – Professional Working Proficiency</option>
+                                                <option>4 – Full Professional Proficiency</option>
+                                                <option>5 – Native / Bilingual Proficiency</option>
+                                              </select>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">3</th>
+                                    <td class="pt" contenteditable="false">
+                                      <input style="width: 150px;" type="text" class="form-control" id="language_3"
+                                       formControlName="language_3">
+                                    </td>
+                                    <td class="pt" contenteditable="false">
+  
+                                      <select style="width: 150px;" class="form-control" id="speak_3" formControlName="speak_3" required>
+                                        <option value="" selected> </option>
+                                        <option>1 – Elementary Proficiency</option>
+                                        <option>2 – Limited Working Proficiency</option>
+                                        <option>3 – Professional Working Proficiency</option>
+                                        <option>4 – Full Professional Proficiency</option>
+                                        <option>5 – Native / Bilingual Proficiency</option>
+                                      </select>
+                                      </td>
+                                      <td class="pt" contenteditable="false">
+  
+                                          <select style="width: 150px;" class="form-control" id="read_3" formControlName="read_3" required>
+                                            <option value=""  selected> </option>
+                                            <option>1 – Elementary Proficiency</option>
+                                            <option>2 – Limited Working Proficiency</option>
+                                            <option>3 – Professional Working Proficiency</option>
+                                            <option>4 – Full Professional Proficiency</option>
+                                            <option>5 – Native / Bilingual Proficiency</option>
+                                          </select>
+                                      </td>
+                                      <td class="pt" contenteditable="false">
+  
+                                              <select style="width: 150px;" class="form-control" id="write_3" formControlName="write_3" required>
+                                                <option value=""  selected> </option>
+                                                <option>1 – Elementary Proficiency</option>
+                                                <option>2 – Limited Working Proficiency</option>
+                                                <option>3 – Professional Working Proficiency</option>
+                                                <option>4 – Full Professional Proficiency</option>
+                                                <option>5 – Native / Bilingual Proficiency</option>
+                                              </select>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">4</th>
+                                    <td class="pt" contenteditable="false">
+                                      <input style="width: 150px;" type="text" class="form-control" id="language_4"
+                                       formControlName="language_4">
+                                    </td>
+                                    <td class="pt" contenteditable="false">
+  
+                                      <select style="width: 150px;" class="form-control" id="speak_4" formControlName="speak_4" required>
+                                        <option value=""  selected> </option>
+                                        <option>1 – Elementary Proficiency</option>
+                                        <option>2 – Limited Working Proficiency</option>
+                                        <option>3 – Professional Working Proficiency</option>
+                                        <option>4 – Full Professional Proficiency</option>
+                                        <option>5 – Native / Bilingual Proficiency</option>
+                                      </select>
+                                      </td>
+                                      <td class="pt" contenteditable="false">
+  
+                                          <select style="width: 150px;" class="form-control" id="read_4" formControlName="read_4" required>
+                                            <option value=""  selected> </option>
+                                            <option>1 – Elementary Proficiency</option>
+                                            <option>2 – Limited Working Proficiency</option>
+                                            <option>3 – Professional Working Proficiency</option>
+                                            <option>4 – Full Professional Proficiency</option>
+                                            <option>5 – Native / Bilingual Proficiency</option>
+                                          </select>
+                                      </td>
+                                      <td class="pt" contenteditable="false">
+  
+                                              <select style="width: 150px;" class="form-control" id="write_4" formControlName="write_4" required>
+                                                <option value=""  selected> </option>
+                                                <option>1 – Elementary Proficiency</option>
+                                                <option>2 – Limited Working Proficiency</option>
+                                                <option>3 – Professional Working Proficiency</option>
+                                                <option>4 – Full Professional Proficiency</option>
+                                                <option>5 – Native / Bilingual Proficiency</option>
+                                              </select>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">5</th>
+                                    <td class="pt" contenteditable="false">
+                                      <input style="width: 150px;" type="text" class="form-control" id="language_5"
+                                       formControlName="language_5">
+                                    </td>
+                                    <td class="pt" contenteditable="false">
+  
+                                      <select style="width: 150px;" class="form-control" id="speak_5" formControlName="speak_5" required>
+                                        <option value=""  selected> </option>
+                                        <option>1 – Elementary Proficiency</option>
+                                        <option>2 – Limited Working Proficiency</option>
+                                        <option>3 – Professional Working Proficiency</option>
+                                        <option>4 – Full Professional Proficiency</option>
+                                        <option>5 – Native / Bilingual Proficiency</option>
+                                      </select>
+                                      </td>
+                                      <td class="pt" contenteditable="false">
+  
+                                          <select style="width: 150px;" class="form-control" id="read_5" formControlName="read_5" required>
+                                            <option value=""  selected> </option>
+                                            <option>1 – Elementary Proficiency</option>
+                                            <option>2 – Limited Working Proficiency</option>
+                                            <option>3 – Professional Working Proficiency</option>
+                                            <option>4 – Full Professional Proficiency</option>
+                                            <option>5 – Native / Bilingual Proficiency</option>
+                                          </select>
+                                      </td>
+                                      <td class="pt" contenteditable="false">
+  
+                                              <select style="width: 150px;" class="form-control" id="write_5" formControlName="write_5" required>
+                                                <option value=""  selected> </option>
+                                                <option>1 – Elementary Proficiency</option>
+                                                <option>2 – Limited Working Proficiency</option>
+                                                <option>3 – Professional Working Proficiency</option>
+                                                <option>4 – Full Professional Proficiency</option>
+                                                <option>5 – Native / Bilingual Proficiency</option>
+                                              </select>
+                                      </td>
+                                  </tr>
+                            </tbody>
+                    </table>
+
+                    <div class="form-group mb-2">
+                        <button (click)="goToSocieties()" [disabled]="loading || btnWait" class="btn btn-login btn-primary btn-block mt-4 py-3" ><span  style="font-size: 2rem;">Next</span>
+                        <div *ngIf="loading" class="spinner-border text-white" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        </button>
+                    </div>
                     </div>
 
+                    <div *ngIf="academic_societies">
+                        <small style="margin-top: 50px; color: #fcb017;" >MEMBERSHIP OF ACADEMIC SOCIETIES</small>
+                        
+                        <table class=" table-bordered table-responsive-sm table-sm table-hover text-center " style="margin-top: 40px; margin-bottom: 50px;" cellspacing="0">
+                            <col width="80">
+                            <col width="150">
+                            <col width="150">
+                            <col width="150">
+                            
+                            <thead>  
+                                <tr>
+                                    <th class="text-center"></th>
+                                    <th class="text-center">Name of society</th>
+                                    <th class="text-center">Position</th>
+                                    <th class="text-center">Date joined</th>
+                                   
+                
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                      <th scope="row">1</th>
+                                      <td class="pt" contenteditable="false">
+                                        <input style="width: 150px;" type="text" class="form-control" id="society_name_1"
+                                         formControlName="society_name_1">
+                                      </td>
+                                      <td class="pt" contenteditable="false">
+    
+                                        <input style="width: 150px;" type="text" class="form-control" id="society_position_1"
+                                         formControlName="society_position_1">
+                                        </td>
+                                        <td class="pt" contenteditable="false">
+    
+                                            <input style="width: 150px;" type="date" class="form-control" id="date_joined_1"
+                                         formControlName="date_joined_1">
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td class="pt" contenteditable="false">
+                                            <input style="width: 150px;" type="text" class="form-control" id="society_name_2"
+                                             formControlName="society_name_2">
+                                          </td>
+                                          <td class="pt" contenteditable="false">
+        
+                                            <input style="width: 150px;" type="text" class="form-control" id="society_position_2"
+                                             formControlName="society_position_2">
+                                            </td>
+                                            <td class="pt" contenteditable="false">
+        
+                                            <input style="width: 150px;" type="date" class="form-control" id="date_joined_2"
+                                             formControlName="date_joined_2">
+                                            </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">3</th>
+                                        <td class="pt" contenteditable="false">
+                                            <input style="width: 150px;" type="text" class="form-control" id="society_name_3"
+                                             formControlName="society_name_3">
+                                          </td>
+                                          <td class="pt" contenteditable="false">
+        
+                                            <input style="width: 150px;" type="text" class="form-control" id="society_position_3"
+                                             formControlName="society_position_3">
+                                            </td>
+                                            <td class="pt" contenteditable="false">
+        
+                                            <input style="width: 150px;" type="date" class="form-control" id="date_joined_3"
+                                             formControlName="date_joined_3">
+                                            </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">4</th>
+                                        <td class="pt" contenteditable="false">
+                                            <input style="width: 150px;" type="text" class="form-control" id="society_name_4"
+                                             formControlName="society_name_4">
+                                          </td>
+                                          <td class="pt" contenteditable="false">
+        
+                                            <input style="width: 150px;" type="text" class="form-control" id="society_position_4"
+                                             formControlName="society_position_4">
+                                            </td>
+                                            <td class="pt" contenteditable="false">
+        
+                                            <input style="width: 150px;" type="date" class="form-control" id="date_joined_2"
+                                             formControlName="date_joined_4">
+                                            </td>
+                                      </tr>
+                                      
+                                </tbody>
+                        </table>
 
-  
+                        <div class="form-group mb-2">
+                            <button (click)="goToBodies()" [disabled]="loading || btnWait" class="btn btn-login btn-primary btn-block mt-4 py-3" ><span  style="font-size: 2rem;">Next</span>
+                            <div *ngIf="loading" class="spinner-border text-white" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            </button>
+                        </div>
+                    </div>
+
+                        <div *ngIf="profession_bodies">
+                            <small style="margin-top: 50px; color: #fcb017;" >MEMBERSHIP OF PROFESSIONAL BODIES</small>
+                            
+                            <table class=" table-bordered table-responsive-sm table-sm table-hover text-center " style="margin-top: 40px; margin-bottom: 50px;" cellspacing="0">
+                                <col width="80">
+                                <col width="150">
+                                <col width="150">
+                                <col width="150">
+                                
+                                <thead>  
+                                    <tr>
+                                        <th class="text-center"></th>
+                                        <th class="text-center">Name of society</th>
+                                        <th class="text-center">Position</th>
+                                        <th class="text-center">Date joined</th>
+                                       
+                    
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                          <th scope="row">1</th>
+                                          <td class="pt" contenteditable="false">
+                                            <input style="width: 150px;" type="text" class="form-control" id="body_name_1"
+                                             formControlName="body_name_1">
+                                          </td>
+                                          <td class="pt" contenteditable="false">
+        
+                                            <input style="width: 150px;" type="text" class="form-control" id="body_position_1"
+                                             formControlName="body_position_1">
+                                            </td>
+                                            <td class="pt" contenteditable="false">
+        
+                                                <input style="width: 150px;" type="date" class="form-control" id="date_joined_body_1"
+                                             formControlName="date_joined_body_1">
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td class="pt" contenteditable="false">
+                                                <input style="width: 150px;" type="text" class="form-control" id="society_name_2"
+                                                 formControlName="society_name_2">
+                                              </td>
+                                              <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="text" class="form-control" id="body_position_2"
+                                                 formControlName="body_position_2">
+                                                </td>
+                                                <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="date" class="form-control" id="date_joined_body_2"
+                                                 formControlName="date_joined_body_2">
+                                                </td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">3</th>
+                                            <td class="pt" contenteditable="false">
+                                                <input style="width: 150px;" type="text" class="form-control" id="society_name_3"
+                                                 formControlName="society_name_3">
+                                              </td>
+                                              <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="text" class="form-control" id="body_position_3"
+                                                 formControlName="body_position_3">
+                                                </td>
+                                                <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="date" class="form-control" id="date_joined_body_3"
+                                                 formControlName="date_joined_body_3">
+                                                </td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">4</th>
+                                            <td class="pt" contenteditable="false">
+                                                <input style="width: 150px;" type="text" class="form-control" id="society_name_4"
+                                                 formControlName="society_name_4">
+                                              </td>
+                                              <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="text" class="form-control" id="body_position_4"
+                                                 formControlName="body_position_4">
+                                                </td>
+                                                <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="date" class="form-control" id="date_joined_body_4"
+                                                 formControlName="date_joined_body_4">
+                                                </td>
+                                          </tr>
+                                          
+                                    </tbody>
+                            </table>
+
+                            <div class="form-group mb-2">
+                                <button (click)="goToPublications()" [disabled]="loading || btnWait" class="btn btn-login btn-primary btn-block mt-4 py-3" ><span  style="font-size: 2rem;">Next</span>
+                                <div *ngIf="loading" class="spinner-border text-white" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="publications">
+                            <small style="margin-top: 50px; color: #fcb017;" >PUBLICATIONS</small>
+                            
+                            <table class=" table-bordered table-responsive-sm table-sm table-hover text-center " style="margin-top: 40px; margin-bottom: 50px;" cellspacing="0">
+                                <col width="80">
+                                <col width="100">
+                                <col width="80">
+                                <col width="100">
+                                
+                                <thead>  
+                                    <tr>
+                                        <th class="text-center"></th>
+                                        <th class="text-center">Name of publication</th>
+                                        <th class="text-center">Date of publication</th>
+                                        <th class="text-center">Name of publisher</th>
+                                        <th class="text-center">Subject</th>
+                                        <th class="text-center">Co-Author</th>
+                                       
+                    
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                          <th scope="row">1</th>
+                                          <td class="pt" contenteditable="false">
+                                            <input style="width: 150px;" type="text" class="form-control" id="publication_name_1"
+                                             formControlName="publication_name_1">
+                                          </td>
+                                          <td class="pt" contenteditable="false">
+        
+                                            <input style="width: 150px;" type="date" class="form-control" id="date_publication_1"
+                                             formControlName="date_publication_1">
+                                            </td>
+                                            <td class="pt" contenteditable="false">
+        
+                                                <input style="width: 150px;" type="text" class="form-control" id="publisher_name_1"
+                                             formControlName="publisher_name_1">
+                                            </td>
+                                            <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="text" class="form-control" id="subject_publication_1"
+                                                 formControlName="subject_publication_1">
+                                                </td>
+                                                <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="text" class="form-control" id="co_author_1"
+                                                 formControlName="co_author_1">
+                                                </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td class="pt" contenteditable="false">
+                                                <input style="width: 150px;" type="text" class="form-control" id="publication_name_2"
+                                                 formControlName="publication_name_2">
+                                              </td>
+                                              <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="date" class="form-control" id="date_publication_2"
+                                                 formControlName="date_publication_2">
+                                                </td>
+                                                <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="text" class="form-control" id="publisher_name_2"
+                                                 formControlName="publisher_name_2">
+                                                </td>
+                                                <td class="pt" contenteditable="false">
+            
+                                                    <input style="width: 150px;" type="text" class="form-control" id="subject_publication_2"
+                                                     formControlName="subject_publication_2">
+                                                    </td>
+                                                    <td class="pt" contenteditable="false">
+                
+                                                    <input style="width: 150px;" type="text" class="form-control" id="co_author_2"
+                                                     formControlName="co_author_2">
+                                                    </td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">3</th>
+                                            <td class="pt" contenteditable="false">
+                                                <input style="width: 150px;" type="text" class="form-control" id="publication_name_3"
+                                                 formControlName="publication_name_3">
+                                              </td>
+                                              <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="date" class="form-control" id="date_publication_3"
+                                                 formControlName="date_publication_3">
+                                                </td>
+                                                <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="text" class="form-control" id="publisher_name_3"
+                                                 formControlName="publisher_name_3">
+                                                </td>
+                                                <td class="pt" contenteditable="false">
+            
+                                                    <input style="width: 150px;" type="text" class="form-control" id="subject_publication_3"
+                                                     formControlName="subject_publication_3">
+                                                    </td>
+                                                    <td class="pt" contenteditable="false">
+                
+                                                    <input style="width: 150px;" type="text" class="form-control" id="co_author_3"
+                                                     formControlName="co_author_3">
+                                                    </td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">4</th>
+                                            <td class="pt" contenteditable="false">
+                                                <input style="width: 150px;" type="text" class="form-control" id="publication_name_4"
+                                                 formControlName="publication_name_4">
+                                              </td>
+                                              <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="date" class="form-control" id="date_publication_4"
+                                                 formControlName="date_publication_4">
+                                                </td>
+                                                <td class="pt" contenteditable="false">
+            
+                                                <input style="width: 150px;" type="text" class="form-control" id="subject_publication_4"
+                                                 formControlName="subject_publication_4">
+                                                </td>
+                                                <td class="pt" contenteditable="false">
+            
+                                                    <input style="width: 150px;" type="text" class="form-control" id="co_author_4"
+                                                     formControlName="co_author_4">
+                                                    </td>
+                                                    <td class="pt" contenteditable="false">
+                
+                                                    <input style="width: 150px;" type="text" class="form-control" id="publisher_name_4"
+                                                     formControlName="publisher_name_4">
+                                                    </td>
+                                          </tr>
+                                          
+                                    </tbody>
+                            </table>
+                        </div>
                     <!--SUBMIT-->
-                    <div class="form-group mb-2">
-                        <button [disabled]="loading || btnWait" class="btn btn-login btn-primary btn-block mt-4 py-3" ><span *ngIf="!loading" style="font-size: 2rem;">Submit Form</span>
+                    <div *ngIf="publications" class="form-group mb-2">
+                        <button (click)="onSubmit($event)" [disabled]="loading || btnWait" class="btn btn-login btn-primary btn-block mt-4 py-3" ><span style="font-size: 2rem;">Submit Form</span>
                         <div *ngIf="loading" class="spinner-border text-white" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>

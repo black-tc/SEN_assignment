@@ -27,4 +27,17 @@ export class FormsService {
       })
       .pipe(map(res => res));
   }
+
+  getAllBioForms() {
+    const httpOptions = {
+   headers: new HttpHeaders({
+     'Content-Type': 'application/json',
+     // Authorization: this.token
+   })
+ };
+
+ return this.http.get(this.server_url + 'users/get-all-bio-forms', { headers: httpOptions.headers })
+   .pipe(map(res => res));
+
+}
 }

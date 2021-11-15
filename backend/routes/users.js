@@ -785,8 +785,109 @@ router.post("/submit-bio-form", (req, res, next) => {
             institution: req.body.institution,
             field_study: req.body.field_study,
             specialization: req.body.specialization,
-            language_description: req.body.language_description,
+            // language_description: req.body.language_description,
+            
+                language_1: req.body.language_1,
+                speak_1: req.body.speak_1,
+                read_1: req.body.read_1,
+                write_1: req.body.write_1,
+           
+            language_description_2: {
+                language_2: req.body.language_2,
+                speak_2: req.body.speak_2,
+                read_2: req.body.read_2,
+                write_2: req.body.write_2,
+            },
+            language_description_3: {
+                language_3: req.body.language_3,
+                speak_3: req.body.speak_3,
+                read_3: req.body.read_3,
+                write_3: req.body.write_3,
+            },
+            language_description_4: {
+                language_4: req.body.language_4,
+                speak_4: req.body.speak_4,
+                read_4: req.body.read_4,
+                write_4: req.body.write_4,
+            },
+            language_description_5: {
+                language_5: req.body.language_5,
+                speak_5: req.body.speak_5,
+                read_5: req.body.read_5,
+                write_5: req.body.write_5,
+            },
+            society_1: {
+                society_name_1: req.body.society_name_1,
+                society_position_1: req.body.society_position_1,
+                date_joined_1: req.body.date_joined_1,
+            },
+            society_2: {
+                society_name_2: req.body.society_name_2,
+                society_position_2: req.body.society_position_2,
+                date_joined_2: req.body.date_joined_2,
+            },
+            society_3: {
+                society_name_3: req.body.society_name_3,
+                society_position_3: req.body.society_position_3,
+                date_joined_3: req.body.date_joined_3,
+            },
+            society_4: {
+                society_name_4: req.body.society_name_4,
+                society_position_4: req.body.society_position_4,
+                date_joined_4: req.body.date_joined_4,
+            },
+            body_1: {
+                body_name_1: req.body.body_name_1,
+                body_position_1: req.body.body_position_1,
+                date_joined__body_1: req.body.date_joined_body_1,
+            },
+            body_2: {
+                body_name_2: req.body.body_name_2,
+                body_position_2: req.body.body_position_2,
+                date_joined_body_2: req.body.date_joined_body_2,
+            },
+            body_3: {
+                body_name_3: req.body.body_name_3,
+                body_position_3: req.body.body_position_3,
+                date_joined_body_3: req.body.date_joined_body_3,
+            },
+            body_4: {
+                body_name_4: req.body.body_name_4,
+                body_position_4: req.body.body_position_4,
+                date_joined_body_4: req.body.date_joined_body_4,
+            },
+            publication_1: {
+                publication_name_1: req.body.publication_name_1,
+                date_publication_1: req.body.date_publication_1,
+                publisher_name_1: req.body.publisher_name_1,
+                subject_publication_1: req.body.date_publication_1,
+                co_author_1: req.body.publisher_name_1
+            },
+            publication_2: {
+                publication_name_2: req.body.publication_name_2,
+                date_publication_2: req.body.date_publication_2,
+                publisher_name_2: req.body.publisher_name_2,
+                subject_publication_2: req.body.date_publication_2,
+                co_author_2: req.body.publisher_name_2
+            },
+            publication_3: {
+                publication_name_3: req.body.publication_name_3,
+                date_publication_3: req.body.date_publication_3,
+                publisher_name_3: req.body.publisher_name_3,
+                subject_publication_3: req.body.date_publication_3,
+                co_author_3: req.body.publisher_name_3
+            },
+            publication_4: {
+                publication_name_4: req.body.publication_name_4,
+                date_publication_4: req.body.date_publication_4,
+                publisher_name_4: req.body.publisher_name_4,
+                subject_publication_4: req.body.date_publication_4,
+                co_author_4: req.body.publisher_name_4
+            },
+
         });
+
+        console.log(newForm);
 
         bioForm.addForm(newForm, (err, forms) => {
             try {
@@ -803,4 +904,18 @@ router.post("/submit-bio-form", (req, res, next) => {
         console.log(error);
     }
     });
+
+//route to get all the active users
+router.get("/get-all-bio-forms", (req, res, next) => {
+    try {
+        bioForm.getAllForms({}, (err, profile) => {
+            if (err)
+                next(err)
+            res.status(200).json({ data: profile });
+        });
+    } catch (error) {
+        next(error)
+    }
+
+});
 module.exports = router;

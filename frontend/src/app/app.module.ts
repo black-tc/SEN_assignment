@@ -29,6 +29,7 @@ import { DashboardNavbarComponent } from './components/admin/dashboard-navbar/da
 import { DashboardBioApplicationsComponent } from './components/admin/dashboard-bio-applications/dashboard-bio-applications.component';
 import { DashboardBioFormComponent } from './components/admin/dashboard-bio-applications/dashboard-bio-form/dashboard-bio-form.component';
 import { DashboardHeadingComponent } from './components/admin/dashboard-heading/dashboard-heading.component';
+import { SearchComponent } from './shared/search/search.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { DashboardHeadingComponent } from './components/admin/dashboard-heading/
     DashboardNavbarComponent,
     DashboardBioApplicationsComponent,
     DashboardBioFormComponent,
-    DashboardHeadingComponent
+    DashboardHeadingComponent,
+    SearchComponent,
 
 
   ],

@@ -94,8 +94,6 @@ export class AdminLoginComponent implements OnInit {
               }, 400);
 
         }
-
-
     })
     }
 
