@@ -117,12 +117,12 @@
                    
                  <!--Job-->
                  <div class="form-group mb-3">
-                    <label for="job" class="text-secondary">Job Title <span class="text-danger">*</span></label>
-                    <input type="text" name="faculty" required formControlName="job" class="form-control primary-border"
-                        [ngClass]="{ 'is-invalid': submitted && f?.job?.errors, 'danger-border': submitted && f?.job?.errors }">
+                    <label for="title" class="text-secondary">Job Title <span class="text-danger">*</span></label>
+                    <input type="text" name="faculty" required formControlName="title" class="form-control primary-border"
+                        [ngClass]="{ 'is-invalid': submitted && f?.title?.errors, 'danger-border': submitted && f?.title?.errors }">
 
-                    <div *ngIf="submitted && f?.job?.errors" class="invalid-feedback">
-                        <div *ngIf="f?.job?.errors?.required">Job Title is required.</div>
+                    <div *ngIf="submitted && f?.title?.errors" class="invalid-feedback">
+                        <div *ngIf="f?.title?.errors?.required">Job Title is required.</div>
                     </div>
                 </div>
 

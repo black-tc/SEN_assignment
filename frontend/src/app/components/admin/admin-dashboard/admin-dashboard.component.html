@@ -54,6 +54,7 @@
               <td style="min-width: 130px;">
                   <div class="btn-group btn-group-sm">
                       <a [routerLink]="['/admin/post',post._id]" type="button" class="btn btn-primary">View</a>
+                      <a [routerLink]="['/admin/post',post._id]" type="button" class="btn btn-primary">Approve</a>
                       <a type="button" (click)="deletePost(post._id)" class="btn btn-danger">Delete</a>
                   </div>
               </td>
@@ -70,36 +71,55 @@
     <!-- <button class="btn btn-block click_button" (click)="redirectToBio()">Fill in form</button> -->
     </section>
         <section class="text-center" style="font-size: 1.5rem;">
-          <div class="text-center text-dark"style="font-size: 2rem; margin-bottom: -1rem;"><strong>Total users: {{number}}</strong></div>
+          <div class="text-center text-dark"style="font-size: 2rem"><strong>Total submitted forms: {{total}}</strong></div>
           <app-search
       (termEvent)="handleTerm($event)"
-      placeholder="Search by name"
-      styles="marginTop: 20px; "
+      placeholder="Search by name or occupation"
+      styles="marginTop: 40px !important; "
     ></app-search>
-          <div class="page-content page-container" id="page-content">
-            <div class="">
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="list list-row block">
-
-                            <div class="list-item" data-id="19" *ngFor="let people of companies; index as i">
-                                <div><a *ngIf="people.logo" href="#" data-abc="true"><span class="w-48 avatar"><img src="assets/profiles/{{people.logo}}" class="inner" alt="."></span></a></div>
-                                <div><a *ngIf="!people.logo" href="#" data-abc="true"><span class="w-48 avatar "><img src="https://img.icons8.com/color/48/000000/guest-male.png" alt="."></span></a></div>
-                                <div class="flex"> <a href="#" class="item-author text-color" data-abc="true">{{ people.company_name }}</a>
-                                    <div class="item-except text-muted text-sm h-1x">{{ people.description}}</div>
-
-                                </div>
-                                <div class="no-wrap">
-                                    <div class="item-date text-muted text-sm d-none d-md-block">{{ people.industry }}</div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="table-responsive " style="margin-top: 25px;">
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>Title</th>
+                  <th>Last Name</th>
+                  <th>First Name</th>
+                  <th>Department</th>
+                  <th>Personnel Number</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+    
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let post of itsforms; let i=index; ">
+                <td>{{post.title}}</td>
+                <td>{{post.lname}}</td>
+                <td>{{post.fname}}</td>
+                <td>{{post.department}}</td>
+                <td>{{post.personnel_number}}</td>
+                  <td title="{{post.phone}}">
+                      <p class="lineText">{{post.phone}}</p>
+                  </td>
+                  <td>{{post.email}}</td>
+                 
+                  <td style="min-width: 130px;">
+                      <div class="btn-group btn-group-sm">
+                          <a [routerLink]="['/admin/post',post._id]" type="button" class="btn btn-primary">View</a>
+                          <a [routerLink]="['/admin/post',post._id]" type="button" class="btn btn-primary">Approve</a>
+                          <a type="button" (click)="deletePost(post._id)" class="btn btn-danger">Delete</a>
+                      </div>
+                  </td>
+              </tr>
+              <tr *ngIf="!itsforms" colspan=8 class="text-center">
+                  <td colspan=8>Loading</td>
+              </tr>
+              <tr *ngIf="data && data.length==0" class="text-center">
+                  <td colspan=8>No post available</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
             <!-- <button class="btn btn-block click_button" (click)="redirectToITS()">Add Business</button> -->
         </section>
 

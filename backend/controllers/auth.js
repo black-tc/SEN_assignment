@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const BioForm = require("../models/forms");
 const config = require("../config/database");
 const express = require("express");
 const router = express.Router();
@@ -30,7 +31,31 @@ const crypto = require("../config/cryptojs");
         })
     }
 
+   
+    const approveBioForm = (req, res) => {
+        
+        let _id_bidder = req.params.id
+    // console.log("_id_bidder", _id_bidder,"req.params.id", req.params.id)
+        BioForm.findOne({
+            where: {
+                _id: _id_bidder  
+            }
+        }).then(async (user) => {
+            await BioForm.findOneAndUpdate({
+                _id: _id_bidder},
+                {$set: {approved: true}}
+            ).then(data => {
+                console.log("Update state", data)
+                res.status(200).send({
+                    message: `${user.email}`
+                })
+            }).catch(err => {
+                res.send('error: ' + err)
+            })
+        })
+    }
+
     module.exports = {
-        accountActivation
+        accountActivation, approveBioForm
      
     }

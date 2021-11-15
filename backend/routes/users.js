@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Admin = require("../models/admin_user");
 const bioForm = require("../models/forms");
+const ITSForm = require("../models/its_forms");
 const config = require("../config/database");
 const express = require("express");
 const router = express.Router();
@@ -601,6 +602,7 @@ router.post("/admin_signup", (req, res, next) => {
 
 router.get('/activation/:id', authController.accountActivation)
 
+router.get('/approve/:id', authController.approveBioForm)
 
     //emailValidation route
 router.post("/checkEmail", (req, res, next) => {
@@ -663,7 +665,7 @@ router.post('/login_authenticate', async (req, res, next) => {
                                 email: encryptedEmail,
                                 active: user.active,
                                 first_name: user.fname
-                                
+                            
                             }
                         });
 
@@ -761,7 +763,7 @@ router.get("/get-all-users", (req, res, next) => {
     });
 });
 
-//register route
+//bio form route
 router.post("/submit-bio-form", (req, res, next) => {
     // console.log('here now');
     try {
@@ -905,10 +907,58 @@ router.post("/submit-bio-form", (req, res, next) => {
     }
     });
 
+//bio form route
+router.post("/submit-its-form", (req, res, next) => {
+    // console.log('here now');
+    try {
+        let newForm = new ITSForm({
+            fname: req.body.fname,
+            lname: req.body.lname,
+            email: req.body.email,
+            personnel_number: req.body.personnel_number,
+            academic: req.body.academic,
+            title: req.body.title,
+            phone: req.body.phone,
+            department: req.body.department
+
+        });
+
+        console.log(newForm);
+
+        ITSForm.addForm(newForm, (err, forms) => {
+            try {
+                if (err)
+                    next(err);
+               
+                return res.status(200).json({ success: true, msg: "Form successfully submitted" });
+            } catch (error) {
+                console.log(error)
+            }
+        })
+
+    }catch (error) {
+        console.log(error);
+    }
+    });
+
 //route to get all the active users
 router.get("/get-all-bio-forms", (req, res, next) => {
     try {
         bioForm.getAllForms({}, (err, profile) => {
+            if (err)
+                next(err)
+            res.status(200).json({ data: profile });
+        });
+    } catch (error) {
+        next(error)
+    }
+
+});
+
+//route to get all the active users
+router.get("/get-all-its-forms", (req, res, next) => {
+    try {
+        ITSForm.getAllForms({}, (err, profile) => {
             if (err)
                 next(err)
             res.status(200).json({ data: profile });
